@@ -1,0 +1,34 @@
+# Server Settings
+server:
+  port: ${SERVER_PORT:8085}
+
+# Datasource Settings
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/prp
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
+
+  # JPA / Hibernate Settings
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER:https://auth.arorms.cn/realms/arorms}
+
+application:
+  security:
+    jwt:
+      audience: ${JWT_AUD:prp-backend}
+    cors:
+      allowed-origins: ${ALLOWED_ORIGINS:https://todo.arorms.cn,http://localhost:5173}

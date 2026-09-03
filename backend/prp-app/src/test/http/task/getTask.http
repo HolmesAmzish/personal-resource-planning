@@ -1,0 +1,16 @@
+@baseUrl = http://localhost:8080
+
+### Get tasks
+GET {{baseUrl}}/api/task
+    ?page=0&size=20
+
+### Get tasks by project
+GET {{baseUrl}}/api/task
+    ?projectId=1&page=0&size=20
+
+### Get task detail
+GET {{baseUrl}}/api/task/1
+
+### Get tasks by deadline
+GET {{baseUrl}}/api/task/deadline
+    ?page=0&size=20

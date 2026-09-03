@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Update a task
+PUT {{baseUrl}}/api/task
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Updated title",
+  "description": "Updated description",
+  "isCompleted": false
+}

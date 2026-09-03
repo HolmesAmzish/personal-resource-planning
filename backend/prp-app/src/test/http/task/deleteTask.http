@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Delete a task
+DELETE {{baseUrl}}/api/task/1
+Authorization: Bearer {{token}}

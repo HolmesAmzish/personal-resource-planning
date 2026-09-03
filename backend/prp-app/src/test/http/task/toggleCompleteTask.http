@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Toggle complete
+PUT {{baseUrl}}/api/task/toggleComplete/1
+Authorization: Bearer {{token}}

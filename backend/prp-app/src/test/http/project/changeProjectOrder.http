@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Change project order
+PUT {{baseUrl}}/api/project/updateOrder
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Work",
+  "orderIndex": 2,
+  "description": "Work related tasks"
+}

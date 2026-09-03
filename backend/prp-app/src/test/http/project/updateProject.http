@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Update a project
+PUT {{baseUrl}}/api/project
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Work",
+  "description": "Renamed description"
+}

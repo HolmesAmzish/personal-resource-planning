@@ -1,0 +1,22 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Add a project
+POST {{baseUrl}}/api/project
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Work",
+  "description": "Work related tasks"
+}
+
+### Add with ID must fail (400/500)
+POST {{baseUrl}}/api/project
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 99,
+  "name": "Invalid"
+}

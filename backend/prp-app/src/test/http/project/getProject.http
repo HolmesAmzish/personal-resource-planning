@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Get projects
+GET {{baseUrl}}/api/project
+Authorization: Bearer {{token}}

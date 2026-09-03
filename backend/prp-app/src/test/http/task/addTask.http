@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Add a task
+POST {{baseUrl}}/api/task/add
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Implement prp backend",
+  "description": "Migrated from arlist todo",
+  "project": {
+    "id": 1
+  },
+  "deadline": "2026-09-10T18:00:00"
+}
+
+### Add a task without project
+POST {{baseUrl}}/api/task/add
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Standalone task"
+}
