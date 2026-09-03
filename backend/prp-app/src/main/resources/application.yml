@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/prp
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/prp_db
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD}
 
@@ -31,4 +31,4 @@ application:
     jwt:
       audience: ${JWT_AUD:prp-backend}
     cors:
-      allowed-origins: ${ALLOWED_ORIGINS:https://todo.arorms.cn,http://localhost:5173}
+      allowed-origins: ${ALLOWED_ORIGINS:https://prp.arorms.cn,http://localhost:5173}
