@@ -6,9 +6,10 @@ Personal Resource Planning 后端。多模块 Gradle 工程（Spring Boot 4.1.1 
 
 - `prp-common`：跨 domain 共享——公共配置（CORS、分页序列化）、全局异常处理、枚举
 - `prp-task`：task + project domain 垂直切片——实体、Repository、Service、REST 控制器
+- `prp-finance`：财务 domain 垂直切片（从 personal-financial-management 迁移，MyBatis-Plus+MySQL+Flyway → JPA+PostgreSQL+DDL）——账户、分类、交易、交易模板、统计
 - `prp-app`：启动组装模块（无 controller）——启动类、安全配置（Keycloak JWT 资源服务器）、配置文件；依赖所有 domain 模块
 
-依赖方向：`prp-app` → `prp-task` → `prp-common`。新增 domain（如 `prp-finance`、`prp-hr`）时照 `prp-task` 复制一份，在 settings 中 include 并在 `prp-app` 加一行依赖即可。
+依赖方向：`prp-app` → `prp-task`、`prp-finance` → `prp-common`。新增 domain（如 `prp-hr`）时照 `prp-task` 复制一份，在 settings 中 include 并在 `prp-app` 加一行依赖即可。
 
 ## 快速启动
 
@@ -18,7 +19,7 @@ export DB_PASSWORD=<postgres密码>
 ./gradlew :prp-app:bootRun
 ```
 
-首次启动由 Hibernate `ddl-auto: update` 自动建表 `tasks`、`projects`。
+首次启动由 Hibernate `ddl-auto: update` 自动建表 `tasks`、`projects`、`accounts`、`categories`、`transactions`、`transaction_presets`，并由 `FinanceDataInitializer` 种子写入 12 条系统分类（user_id 为 NULL，不可改）。
 
 ## 环境变量
 

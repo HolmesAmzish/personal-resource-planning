@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### Income/expense summary + per-category breakdown
+GET {{baseUrl}}/api/statistics/summary?from=2026-01-01&to=2026-12-31
+Authorization: Bearer {{token}}
+
+### Trend, unit=day/week/month
+GET {{baseUrl}}/api/statistics/trend?from=2026-09-01&to=2026-09-30&unit=day
+Authorization: Bearer {{token}}
+
+### Account balances
+GET {{baseUrl}}/api/statistics/account-balances
+Authorization: Bearer {{token}}

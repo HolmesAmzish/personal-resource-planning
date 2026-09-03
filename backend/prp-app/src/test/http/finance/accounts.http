@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### List accounts
+GET {{baseUrl}}/api/accounts?page=0&size=20
+Authorization: Bearer {{token}}
+
+### Create account
+POST {{baseUrl}}/api/accounts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "招商银行",
+  "type": "BANK",
+  "balance": 1000.00,
+  "currency": "CNY",
+  "note": "工资卡"
+}
+
+### Update account (balance never changes here)
+PUT {{baseUrl}}/api/accounts/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "招商银行",
+  "type": "BANK",
+  "currency": "CNY",
+  "note": "工资卡"
+}
+
+### Total balance per currency
+GET {{baseUrl}}/api/accounts/total-balance
+Authorization: Bearer {{token}}
+
+### Delete account
+DELETE {{baseUrl}}/api/accounts/1
+Authorization: Bearer {{token}}

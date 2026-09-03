@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### List presets
+GET {{baseUrl}}/api/transaction-presets
+Authorization: Bearer {{token}}
+
+### Create preset (no date, no balance movement)
+POST {{baseUrl}}/api/transaction-presets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fromAccountId": 1,
+  "categoryId": 1,
+  "type": "EXPENSE",
+  "amount": 25.50,
+  "note": "工作日午餐"
+}
+
+### Update preset
+PUT {{baseUrl}}/api/transaction-presets/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fromAccountId": 1,
+  "categoryId": 1,
+  "type": "EXPENSE",
+  "amount": 30.00,
+  "note": "工作日午餐+咖啡"
+}
+
+### Delete preset
+DELETE {{baseUrl}}/api/transaction-presets/1
+Authorization: Bearer {{token}}

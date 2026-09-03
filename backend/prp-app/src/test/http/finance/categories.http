@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### List all visible categories (system + own)
+GET {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+
+### List expense categories
+GET {{baseUrl}}/api/categories?type=EXPENSE
+Authorization: Bearer {{token}}
+
+### Create category
+POST {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "咖啡",
+  "type": "EXPENSE",
+  "icon": "Coffee",
+  "sortOrder": 10
+}
+
+### Update own category (type is immutable)
+PUT {{baseUrl}}/api/categories/100
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "咖啡",
+  "type": "EXPENSE",
+  "icon": "Coffee",
+  "sortOrder": 11
+}
+
+### Delete own category
+DELETE {{baseUrl}}/api/categories/100
+Authorization: Bearer {{token}}

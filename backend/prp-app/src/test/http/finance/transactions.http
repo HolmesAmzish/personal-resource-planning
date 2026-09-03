@@ -1,0 +1,66 @@
+@baseUrl = http://localhost:8080
+@token = {{accessToken}}
+
+### List transactions with filters
+GET {{baseUrl}}/api/transactions?page=0&size=20&type=EXPENSE&from=2026-01-01&to=2026-12-31
+Authorization: Bearer {{token}}
+
+### Create expense (from account only)
+POST {{baseUrl}}/api/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fromAccountId": 1,
+  "categoryId": 1,
+  "type": "EXPENSE",
+  "amount": 25.50,
+  "occurredOn": "2026-09-03",
+  "note": "午餐"
+}
+
+### Create income (to account only)
+POST {{baseUrl}}/api/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "toAccountId": 1,
+  "categoryId": 9,
+  "type": "INCOME",
+  "amount": 8000.00,
+  "occurredOn": "2026-09-01",
+  "note": "工资"
+}
+
+### Transfer (both accounts, category optional)
+POST {{baseUrl}}/api/transactions/transfer
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fromAccountId": 1,
+  "toAccountId": 2,
+  "type": "TRANSFER",
+  "amount": 500.00,
+  "occurredOn": "2026-09-03",
+  "note": "转到余额宝"
+}
+
+### Update transaction (balances reversed then re-applied)
+PUT {{baseUrl}}/api/transactions/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fromAccountId": 1,
+  "categoryId": 1,
+  "type": "EXPENSE",
+  "amount": 30.00,
+  "occurredOn": "2026-09-03",
+  "note": "午餐+咖啡"
+}
+
+### Delete transaction (balances reversed)
+DELETE {{baseUrl}}/api/transactions/1
+Authorization: Bearer {{token}}
