@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useT } from '../../../shared/i18n/TranslationContext'
 import { Button, Input } from '../../../shared/ui'
 import type { Project } from '../types'
 
@@ -13,6 +14,7 @@ export function ProjectSidebar({
   onSelect: (id: number | null) => void
   onCreate: (name: string) => void
 }) {
+  const t = useT()
   const [name, setName] = useState('')
   return (
     <div className="rounded-[var(--radius)] border border-border bg-card p-4 space-y-2">
@@ -20,7 +22,7 @@ export function ProjectSidebar({
         onClick={() => onSelect(null)}
         className={`w-full text-left px-3 py-2 rounded-lg text-[13px] ${activeId === null ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`}
       >
-        All tasks
+        {t('tasks.allTasks')}
       </button>
       {projects.map((p) => (
         <button
@@ -40,9 +42,9 @@ export function ProjectSidebar({
           setName('')
         }}
       >
-        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="New project" aria-label="New project name" />
+        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={t('tasks.newProject')} aria-label={t('tasks.newProjectName')} />
         <Button type="submit" variant="primary" className="shrink-0">
-          Add
+          {t('tasks.add')}
         </Button>
       </form>
     </div>

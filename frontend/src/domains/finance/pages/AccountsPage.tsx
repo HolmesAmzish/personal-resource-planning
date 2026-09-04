@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { toMessage } from '../../../shared/lib/apiClient'
 import { fmtMoney } from '../../../shared/lib/format'
+import { useT } from '../../../shared/i18n/TranslationContext'
 import { usePage } from '../../../shared/hooks/usePage'
 import { Badge, Button, Card, Empty, Spinner } from '../../../shared/ui'
 import { deleteAccount, listAccounts, totalBalance } from '../api'
 import type { Account, CurrencyTotal } from '../types'
 
 export function AccountsPage() {
+  const t = useT()
   const { page, size, setPage } = usePage(20)
   const [rows, setRows] = useState<Account[]>([])
   const [total, setTotal] = useState(0)
@@ -36,8 +38,10 @@ export function AccountsPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-[22px] font-semibold leading-tight text-foreground">Accounts</h1>
-        <p className="text-[13px] text-muted-foreground mt-1">{total} accounts.</p>
+        <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('finance.accountsTitle')}</h1>
+        <p className="text-[13px] text-muted-foreground mt-1">
+          {total} {t('finance.accountsSubtitle')}
+        </p>
       </div>
       <div className="flex flex-wrap gap-2">
         {totals.map((t) => (
@@ -49,10 +53,10 @@ export function AccountsPage() {
       {error && <p className="text-[12px] text-danger">{error}</p>}
       <Card className="overflow-hidden">
         <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 border-b border-border bg-muted text-[11px] font-medium text-muted-foreground">
-          <div className="col-span-5">Name</div>
-          <div className="col-span-3">Type</div>
-          <div className="col-span-2">Balance</div>
-          <div className="col-span-2 text-right">Actions</div>
+          <div className="col-span-5">{t('finance.name')}</div>
+          <div className="col-span-3">{t('finance.type')}</div>
+          <div className="col-span-2">{t('finance.balance')}</div>
+          <div className="col-span-2 text-right">{t('finance.actions')}</div>
         </div>
         {loading ? (
           <div className="p-10 flex justify-center">
@@ -60,7 +64,7 @@ export function AccountsPage() {
           </div>
         ) : rows.length === 0 ? (
           <div className="p-4">
-            <Empty message="No accounts yet" />
+            <Empty message={t('finance.noAccounts')} />
           </div>
         ) : (
           <div className="divide-y divide-border">
@@ -77,14 +81,14 @@ export function AccountsPage() {
                 <div className="col-span-2 flex md:justify-end">
                   <Button
                     variant="destructive"
-                    title="Delete account"
-                    aria-label={`Delete account ${a.name}`}
+                    title={t('finance.deleteAccount')}
+                    aria-label={`${t('finance.deleteAccount')} ${a.name}`}
                     onClick={async () => {
                       await deleteAccount(a.id)
                       await load()
                     }}
                   >
-                    Delete
+                    {t('common.delete')}
                   </Button>
                 </div>
               </div>
@@ -92,13 +96,15 @@ export function AccountsPage() {
           </div>
         )}
         <div className="px-6 py-3 border-t border-border flex items-center justify-between">
-          <span className="text-[12px] text-muted-foreground">Page {page + 1}</span>
+          <span className="text-[12px] text-muted-foreground">
+            {t('common.page')} {page + 1}
+          </span>
           <div className="flex gap-2">
             <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
-              Previous
+              {t('common.previous')}
             </Button>
             <Button disabled={(page + 1) * size >= total} onClick={() => setPage(page + 1)}>
-              Next
+              {t('common.next')}
             </Button>
           </div>
         </div>

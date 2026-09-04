@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
 import { X } from 'lucide-react'
+import { useT } from './i18n/TranslationContext'
 import { cn } from './lib/cn'
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
@@ -62,12 +63,13 @@ export function Input({ className, ...rest }: InputHTMLAttributes<HTMLInputEleme
 }
 
 export function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+  const t = useT()
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl max-h-[90vh] overflow-auto">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-[15px] font-semibold text-foreground">{title}</h2>
-          <button aria-label="Close" onClick={onClose} className="p-1.5 rounded-full text-muted-foreground hover:bg-muted">
+          <button aria-label={t('common.close')} onClick={onClose} className="p-1.5 rounded-full text-muted-foreground hover:bg-muted">
             <X size={16} />
           </button>
         </div>
@@ -103,5 +105,6 @@ export function Empty({ message, action }: { message: string; action?: ReactNode
 }
 
 export function Spinner() {
-  return <div className="w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" role="status" aria-label="Loading" />
+  const t = useT()
+  return <div className="w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" role="status" aria-label={t('common.loading')} />
 }

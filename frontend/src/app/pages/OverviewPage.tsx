@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { apiClient, toMessage } from '../../shared/lib/apiClient'
+import { useT } from '../../shared/i18n/TranslationContext'
 import { Card } from '../../shared/ui'
 
 interface Summary {
@@ -9,6 +10,7 @@ interface Summary {
 }
 
 export function OverviewPage() {
+  const t = useT()
   const [openTasks, setOpenTasks] = useState<number | null>(null)
   const [accounts, setAccounts] = useState<number | null>(null)
   const [monthNet, setMonthNet] = useState<string>('-')
@@ -40,16 +42,16 @@ export function OverviewPage() {
   }, [])
 
   const cards = [
-    { label: 'Total tasks', value: openTasks === null ? '-' : String(openTasks), to: '/tasks' },
-    { label: 'Total accounts', value: accounts === null ? '-' : String(accounts), to: '/finance/accounts' },
-    { label: 'Yearly net', value: monthNet, to: '/finance/statistics' },
+    { label: t('overview.totalTasks'), value: openTasks === null ? '-' : String(openTasks), to: '/tasks' },
+    { label: t('overview.totalAccounts'), value: accounts === null ? '-' : String(accounts), to: '/finance/accounts' },
+    { label: t('overview.yearlyNet'), value: monthNet, to: '/finance/statistics' },
   ]
 
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-[22px] font-semibold leading-tight text-foreground">Overview</h1>
-        <p className="text-[13px] text-muted-foreground mt-1">Tasks and finance at a glance.</p>
+        <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('overview.title')}</h1>
+        <p className="text-[13px] text-muted-foreground mt-1">{t('overview.subtitle')}</p>
       </div>
       {error && <p className="text-[12px] text-danger">{error}</p>}
       <div className="grid gap-4 md:grid-cols-3">

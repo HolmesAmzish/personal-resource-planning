@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { toMessage } from '../../../shared/lib/apiClient'
+import { useT } from '../../../shared/i18n/TranslationContext'
 import { usePage } from '../../../shared/hooks/usePage'
 import { Badge, Button, Card, Empty, Spinner } from '../../../shared/ui'
 import {
@@ -16,6 +17,7 @@ import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TaskItem } from '../components/TaskItem'
 
 export function TasksPage() {
+  const t = useT()
   const { page, size, setPage } = usePage(20)
   const [projectId, setProjectId] = useState<number | null>(null)
   const [tasks, setTasks] = useState<Task[]>([])
@@ -51,11 +53,13 @@ export function TasksPage() {
     <div className="space-y-5">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-[22px] font-semibold leading-tight text-foreground">Tasks</h1>
-          <p className="text-[13px] text-muted-foreground mt-1">{total} tasks, filter by project.</p>
+          <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('tasks.title')}</h1>
+          <p className="text-[13px] text-muted-foreground mt-1">
+            {total} {t('tasks.subtitle')}
+          </p>
         </div>
         <Button variant="primary" onClick={() => setModal(true)}>
-          New task
+          {t('tasks.newTask')}
         </Button>
       </div>
       {error && <p className="text-[12px] text-danger">{error}</p>}
@@ -74,7 +78,7 @@ export function TasksPage() {
         />
         <Card className="overflow-hidden">
           <div className="px-6 py-3 border-b border-border bg-muted flex items-center justify-between">
-            <span className="text-[11px] font-medium text-muted-foreground">Task list</span>
+            <span className="text-[11px] font-medium text-muted-foreground">{t('tasks.taskList')}</span>
             <Badge>{total}</Badge>
           </div>
           {loading ? (
@@ -83,7 +87,7 @@ export function TasksPage() {
             </div>
           ) : tasks.length === 0 ? (
             <div className="p-4">
-              <Empty message="No tasks yet" />
+              <Empty message={t('tasks.empty')} />
             </div>
           ) : (
             <div className="divide-y divide-border">
@@ -104,15 +108,17 @@ export function TasksPage() {
             </div>
           )}
           <div className="px-6 py-3 border-t border-border flex items-center justify-between">
-            <span className="text-[12px] text-muted-foreground">Page {page + 1}</span>
-            <div className="flex gap-2">
-              <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
-                Previous
-              </Button>
-              <Button disabled={(page + 1) * size >= total} onClick={() => setPage(page + 1)}>
-                Next
-              </Button>
-            </div>
+<span className="text-[12px] text-muted-foreground">
+            {t('common.page')} {page + 1}
+          </span>
+          <div className="flex gap-2">
+            <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
+              {t('common.previous')}
+            </Button>
+            <Button disabled={(page + 1) * size >= total} onClick={() => setPage(page + 1)}>
+              {t('common.next')}
+            </Button>
+          </div>
           </div>
         </Card>
       </div>

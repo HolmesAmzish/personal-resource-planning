@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { toMessage } from '../../../shared/lib/apiClient'
 import { fmtMoney } from '../../../shared/lib/format'
+import { useT } from '../../../shared/i18n/TranslationContext'
 import { usePage } from '../../../shared/hooks/usePage'
 import { Badge, Button, Card, Empty, Spinner } from '../../../shared/ui'
 import { deleteTransaction, listTransactions } from '../api'
 import type { Transaction } from '../types'
 
 export function TransactionsPage() {
+  const t = useT()
   const { page, size, setPage } = usePage(20)
   const [type, setType] = useState('')
   const [rows, setRows] = useState<Transaction[]>([])
@@ -35,25 +37,27 @@ export function TransactionsPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-[22px] font-semibold leading-tight text-foreground">Transactions</h1>
-        <p className="text-[13px] text-muted-foreground mt-1">{total} records, filter by type.</p>
+        <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('finance.transactionsTitle')}</h1>
+        <p className="text-[13px] text-muted-foreground mt-1">
+          {total} {t('finance.transactionsSubtitle')}
+        </p>
       </div>
       <Card className="p-4 flex flex-wrap gap-2">
         {[
-          { value: '', label: 'All' },
-          { value: 'INCOME', label: 'Income' },
-          { value: 'EXPENSE', label: 'Expense' },
-          { value: 'TRANSFER', label: 'Transfer' },
-        ].map((t) => (
+          { value: '', label: t('common.all') },
+          { value: 'INCOME', label: t('common.income') },
+          { value: 'EXPENSE', label: t('common.expense') },
+          { value: 'TRANSFER', label: t('common.transfer') },
+        ].map((t2) => (
           <button
-            key={t.value || 'all'}
+            key={t2.value || 'all'}
             onClick={() => {
-              setType(t.value)
+              setType(t2.value)
               setPage(0)
             }}
-            className={`px-2.5 py-1 rounded-full border text-[12px] font-medium transition-colors ${type === t.value ? 'bg-primary text-primary-foreground border-primary' : 'bg-card text-muted-foreground border-border hover:border-primary/40'}`}
+            className={`px-2.5 py-1 rounded-full border text-[12px] font-medium transition-colors ${type === t2.value ? 'bg-primary text-primary-foreground border-primary' : 'bg-card text-muted-foreground border-border hover:border-primary/40'}`}
           >
-            {t.label}
+            {t2.label}
           </button>
         ))}
       </Card>
@@ -65,35 +69,35 @@ export function TransactionsPage() {
           </div>
         ) : rows.length === 0 ? (
           <div className="p-4">
-            <Empty message="No transactions yet" />
+            <Empty message={t('finance.noTransactions')} />
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {rows.map((t) => (
-              <div key={t.id} className="px-6 py-4 flex flex-col md:grid md:grid-cols-12 gap-3 items-start md:items-center hover:bg-muted transition-colors">
+            {rows.map((r) => (
+              <div key={r.id} className="px-6 py-4 flex flex-col md:grid md:grid-cols-12 gap-3 items-start md:items-center hover:bg-muted transition-colors">
                 <div className="col-span-6 min-w-0 w-full">
                   <p className="text-[13px] font-medium text-foreground truncate">
-                    {t.categoryName ?? t.note ?? `Transaction #${t.id}`}
+                    {r.categoryName ?? r.note ?? `${t('finance.transactionNo')} #${r.id}`}
                   </p>
                   <p className="text-[12px] text-muted-foreground mt-1">
-                    {t.occurredOn} · {[t.fromAccountName, t.toAccountName].filter(Boolean).join(' → ') || '-'}
+                    {r.occurredOn} · {[r.fromAccountName, r.toAccountName].filter(Boolean).join(' → ') || '-'}
                   </p>
                 </div>
                 <div className="col-span-2">
-                  <Badge tone={t.type === 'INCOME' ? 'success' : t.type === 'EXPENSE' ? 'danger' : 'neutral'}>{t.type}</Badge>
+                  <Badge tone={r.type === 'INCOME' ? 'success' : r.type === 'EXPENSE' ? 'danger' : 'neutral'}>{r.type}</Badge>
                 </div>
-                <p className="col-span-2 text-[13px] text-foreground">{fmtMoney(t.amount)}</p>
+                <p className="col-span-2 text-[13px] text-foreground">{fmtMoney(r.amount)}</p>
                 <div className="col-span-2 flex md:justify-end">
                   <Button
                     variant="destructive"
-                    title="Delete transaction"
-                    aria-label={`Delete transaction ${t.id}`}
+                    title={t('finance.deleteTransaction')}
+                    aria-label={`${t('finance.deleteTransaction')} ${r.id}`}
                     onClick={async () => {
-                      await deleteTransaction(t.id)
+                      await deleteTransaction(r.id)
                       await load()
                     }}
                   >
-                    Delete
+                    {t('common.delete')}
                   </Button>
                 </div>
               </div>
@@ -101,13 +105,15 @@ export function TransactionsPage() {
           </div>
         )}
         <div className="px-6 py-3 border-t border-border flex items-center justify-between">
-          <span className="text-[12px] text-muted-foreground">Page {page + 1}</span>
+          <span className="text-[12px] text-muted-foreground">
+            {t('common.page')} {page + 1}
+          </span>
           <div className="flex gap-2">
             <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
-              Previous
+              {t('common.previous')}
             </Button>
             <Button disabled={(page + 1) * size >= total} onClick={() => setPage(page + 1)}>
-              Next
+              {t('common.next')}
             </Button>
           </div>
         </div>

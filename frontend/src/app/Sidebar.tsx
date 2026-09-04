@@ -3,36 +3,15 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../shared/auth/AuthContext'
 import { cn } from '../shared/lib/cn'
 import { useTheme, type Theme } from '../shared/theme/ThemeContext'
-
-const groups = [
-  {
-    title: 'Overview',
-    items: [{ to: '/', label: 'Overview', Icon: LayoutDashboard }],
-  },
-  {
-    title: 'Tasks',
-    items: [{ to: '/tasks', label: 'Tasks', Icon: ListTodo }],
-  },
-  {
-    title: 'Finance',
-    items: [
-      { to: '/finance/dashboard', label: 'Dashboard', Icon: Landmark },
-      { to: '/finance/transactions', label: 'Transactions', Icon: ListTodo },
-      { to: '/finance/accounts', label: 'Accounts', Icon: FolderKanban },
-    ],
-  },
-  {
-    title: 'People',
-    items: [{ to: '/hr', label: 'HR (Coming soon)', Icon: UserRound }],
-  },
-]
+import { useT } from '../shared/i18n/TranslationContext'
 
 function ThemeSwitcher() {
   const { theme, setTheme } = useTheme()
+  const t = useT()
   const opts: { v: Theme; Icon: typeof Sun; label: string }[] = [
-    { v: 'system', Icon: Monitor, label: 'Auto' },
-    { v: 'light', Icon: Sun, label: 'Light' },
-    { v: 'dark', Icon: Moon, label: 'Dark' },
+    { v: 'system', Icon: Monitor, label: t('sidebar.themeSystem') },
+    { v: 'light', Icon: Sun, label: t('sidebar.themeLight') },
+    { v: 'dark', Icon: Moon, label: t('sidebar.themeDark') },
   ]
   return (
     <div className="flex items-center p-1 rounded-full bg-muted border border-border mb-2">
@@ -58,10 +37,33 @@ function ThemeSwitcher() {
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { user } = useAuth()
+  const t = useT()
+  const groups = [
+    {
+      title: t('nav.overview'),
+      items: [{ to: '/', label: t('nav.overview'), Icon: LayoutDashboard }],
+    },
+    {
+      title: t('nav.tasks'),
+      items: [{ to: '/tasks', label: t('nav.tasks'), Icon: ListTodo }],
+    },
+    {
+      title: t('nav.finance'),
+      items: [
+        { to: '/finance/dashboard', label: t('nav.dashboard'), Icon: Landmark },
+        { to: '/finance/transactions', label: t('nav.transactions'), Icon: ListTodo },
+        { to: '/finance/accounts', label: t('nav.accounts'), Icon: FolderKanban },
+      ],
+    },
+    {
+      title: t('nav.people'),
+      items: [{ to: '/hr', label: t('nav.hrComingSoon'), Icon: UserRound }],
+    },
+  ]
   return (
     <>
       {open && (
-        <button aria-label="Close sidebar" onClick={onClose} className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 lg:hidden" />
+        <button aria-label={t('sidebar.close')} onClick={onClose} className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 lg:hidden" />
       )}
       <aside
         className={cn(
@@ -72,8 +74,8 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         <div className="h-16 flex items-center px-4 border-b border-border">
           <div className="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center text-[13px] font-semibold">P</div>
           <div className="ml-2.5 min-w-0">
-            <p className="text-[13px] font-semibold text-foreground truncate">Personal Resource Planning</p>
-            <p className="text-[11px] text-muted-foreground">Calm Operator</p>
+            <p className="text-[13px] font-semibold text-foreground truncate">{t('app.title')}</p>
+            <p className="text-[11px] text-muted-foreground">{t('app.brandSubtitle')}</p>
           </div>
         </div>
         <nav className="flex-1 overflow-auto p-3 space-y-5">
@@ -107,7 +109,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             <div className="w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center text-[12px] font-medium shrink-0">
               {(user?.profile?.preferred_username ?? 'U').slice(0, 1).toUpperCase()}
             </div>
-            <p className="text-[12px] text-foreground truncate min-w-0">{user?.profile?.preferred_username ?? 'Signed in'}</p>
+            <p className="text-[12px] text-foreground truncate min-w-0">{user?.profile?.preferred_username ?? t('sidebar.signedIn')}</p>
           </div>
         </div>
       </aside>

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { fmtMoney } from '../../../shared/lib/format'
+import { useT } from '../../../shared/i18n/TranslationContext'
 import { Card } from '../../../shared/ui'
 import { accountBalances, summary, totalBalance, trend } from '../api'
 import { TrendSparkline } from '../components/TrendSparkline'
 
 export function FinanceDashboardPage() {
+  const t = useT()
   const [net, setNet] = useState('-')
   const [income, setIncome] = useState('-')
   const [expense, setExpense] = useState('-')
@@ -35,15 +37,15 @@ export function FinanceDashboardPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-[22px] font-semibold leading-tight text-foreground">Finance dashboard</h1>
-        <p className="text-[13px] text-muted-foreground mt-1">Income, accounts, and trend at a glance.</p>
+        <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('finance.dashboardTitle')}</h1>
+        <p className="text-[13px] text-muted-foreground mt-1">{t('finance.dashboardSubtitle')}</p>
       </div>
       <div className="grid gap-4 md:grid-cols-4">
         {[
-          { label: 'Yearly income', value: income },
-          { label: 'Yearly expense', value: expense },
-          { label: 'Yearly net', value: net },
-          { label: 'Currencies', value: String(currencies) },
+          { label: t('finance.yearlyIncome'), value: income },
+          { label: t('finance.yearlyExpense'), value: expense },
+          { label: t('overview.yearlyNet'), value: net },
+          { label: t('finance.currencies'), value: String(currencies) },
         ].map((c) => (
           <Card key={c.label} className="p-5">
             <p className="text-[11px] font-medium text-muted-foreground mb-1">{c.label}</p>
@@ -52,7 +54,7 @@ export function FinanceDashboardPage() {
         ))}
       </div>
       <Card className="p-5">
-        <p className="text-[13px] font-semibold text-foreground mb-3">September trend</p>
+        <p className="text-[13px] font-semibold text-foreground mb-3">{t('finance.septemberTrend')}</p>
         <TrendSparkline points={points} />
       </Card>
     </div>
