@@ -1,5 +1,6 @@
 package cn.arorms.prp.finance;
 
+import cn.arorms.prp.common.configs.QueryDslConfig;
 import cn.arorms.prp.finance.dtos.AccountDto;
 import cn.arorms.prp.finance.dtos.CategoryDto;
 import cn.arorms.prp.finance.dtos.PresetDto;
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
@@ -38,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * balance reversal flow ported from PFM (create/update/delete).
  */
 @DataJpaTest
+@Import(QueryDslConfig.class)
 class FinanceFlowTest {
     private static final String UID = "test-user";
 

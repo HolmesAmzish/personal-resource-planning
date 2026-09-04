@@ -9,6 +9,8 @@ dependencies {
     implementation(project(":prp-common"))
     implementation("cn.arorms.framework:arorms-common:1.0-SNAPSHOT")
     implementation("cn.arorms.framework:arorms-security:1.0-SNAPSHOT")
+    annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 }

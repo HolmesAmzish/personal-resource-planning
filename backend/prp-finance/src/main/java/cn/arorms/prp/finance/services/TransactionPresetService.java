@@ -82,7 +82,7 @@ public class TransactionPresetService {
 
     private TransactionPreset mustOwn(String userId, Long id) {
         return presetRepository.findByIdAndUserId(id, userId)
-                .orElseThrow(() -> new NoSuchElementException("卡片不存在"));
+                .orElseThrow(() -> new NoSuchElementException("Preset not found"));
     }
 
     private void validateAccounts(String userId, PresetDto req) {
@@ -92,10 +92,10 @@ public class TransactionPresetService {
                 ? ownership.mustOwnAccount(userId, req.getToAccountId()) : null;
         if ("TRANSFER".equals(req.getType())) {
             if (from == null || to == null) {
-                throw new IllegalArgumentException("转账需要源账户和目标账户");
+                throw new IllegalArgumentException("Transfer requires both a source and a destination account");
             }
             if (req.getFromAccountId().equals(req.getToAccountId())) {
-                throw new IllegalArgumentException("源账户和目标账户不能相同");
+                throw new IllegalArgumentException("Source and destination accounts cannot be the same");
             }
         }
     }

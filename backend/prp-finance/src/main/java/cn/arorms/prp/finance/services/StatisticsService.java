@@ -37,13 +37,13 @@ public class StatisticsService {
     public SummaryVo summary(String userId, LocalDate from, LocalDate to) {
         validateRange(from, to);
         Map<String, BigDecimal> typeSum = transactionRepository.sumByType(userId, from, to).stream()
-                .collect(Collectors.toMap(TransactionRepository.TypeSum::getType,
-                        r -> r.getAmount() == null ? BigDecimal.ZERO : r.getAmount()));
+                .collect(Collectors.toMap(TransactionRepository.TypeSum::type,
+                        r -> r.amount() == null ? BigDecimal.ZERO : r.amount()));
         BigDecimal income = typeSum.getOrDefault("INCOME", BigDecimal.ZERO);
         BigDecimal expense = typeSum.getOrDefault("EXPENSE", BigDecimal.ZERO);
         List<CategoryBreakdownVo> byCat = transactionRepository.sumByCategory(userId, from, to).stream()
-                .map(r -> new CategoryBreakdownVo(r.getCategoryId(), r.getCategoryName(),
-                        r.getType(), r.getAmount() == null ? BigDecimal.ZERO : r.getAmount()))
+                .map(r -> new CategoryBreakdownVo(r.categoryId(), r.categoryName(),
+                        r.type(), r.amount() == null ? BigDecimal.ZERO : r.amount()))
                 .toList();
         return new SummaryVo(income, expense, income.subtract(expense), byCat);
     }
@@ -52,14 +52,14 @@ public class StatisticsService {
         validateRange(from, to);
         String u = unit == null ? "day" : unit;
         if (!Set.of("day", "week", "month").contains(u)) {
-            throw new IllegalArgumentException("unit 仅支持 day/week/month");
+            throw new IllegalArgumentException("unit only supports day/week/month");
         }
 
         Map<LocalDate, Map<String, BigDecimal>> daily = transactionRepository
                 .dailyTypeSum(userId, from, to).stream()
-                .collect(Collectors.groupingBy(TransactionRepository.DailyTypeSum::getDate,
-                        Collectors.toMap(TransactionRepository.DailyTypeSum::getType,
-                                r -> r.getAmount() == null ? BigDecimal.ZERO : r.getAmount(),
+                .collect(Collectors.groupingBy(TransactionRepository.DailyTypeSum::date,
+                        Collectors.toMap(TransactionRepository.DailyTypeSum::type,
+                                r -> r.amount() == null ? BigDecimal.ZERO : r.amount(),
                                 BigDecimal::add)));
 
         Map<LocalDate, BigDecimal[]> buckets = new LinkedHashMap<>();
@@ -89,7 +89,7 @@ public class StatisticsService {
 
     private void validateRange(LocalDate from, LocalDate to) {
         if (from == null || to == null || from.isAfter(to)) {
-            throw new IllegalArgumentException("时间范围无效：from 不能晚于 to");
+            throw new IllegalArgumentException("Invalid date range: from cannot be after to");
         }
     }
 

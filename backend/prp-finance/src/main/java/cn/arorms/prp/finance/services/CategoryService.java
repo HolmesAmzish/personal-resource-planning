@@ -54,7 +54,7 @@ public class CategoryService {
     private Category mustOwn(String userId, Long id) {
         Category c = categoryRepository.findById(id).orElse(null);
         if (c == null || c.getUserId() == null || !userId.equals(c.getUserId())) {
-            throw new NoSuchElementException("分类不存在或不可改");
+            throw new NoSuchElementException("Category not found or not modifiable");
         }
         return c;
     }

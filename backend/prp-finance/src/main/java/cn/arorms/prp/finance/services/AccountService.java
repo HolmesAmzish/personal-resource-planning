@@ -61,13 +61,13 @@ public class AccountService {
 
     public List<CurrencyTotalVo> totalBalance(String userId) {
         return accountRepository.sumByCurrency(userId).stream()
-                .map(r -> new CurrencyTotalVo(r.getCurrency(), r.getTotal()))
+                .map(r -> new CurrencyTotalVo(r.currency(), r.total()))
                 .toList();
     }
 
     private Account mustOwn(String userId, Long id) {
         return accountRepository.findByIdAndUserId(id, userId)
-                .orElseThrow(() -> new NoSuchElementException("账户不存在"));
+                .orElseThrow(() -> new NoSuchElementException("Account not found"));
     }
 
     private AccountVo toVo(Account a) {

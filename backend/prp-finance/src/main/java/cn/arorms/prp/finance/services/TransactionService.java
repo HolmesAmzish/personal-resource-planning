@@ -10,9 +10,7 @@ import cn.arorms.prp.finance.shared.TransactionOwnershipChecker;
 import cn.arorms.prp.finance.vos.TransactionVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,12 +50,10 @@ public class TransactionService {
     public Page<TransactionVo> list(String userId, LocalDate from, LocalDate to,
                                     Long accountId, Long categoryId, String type, Pageable pageable) {
         String t = (type == null || type.isBlank()) ? null : type;
-        Pageable sorted = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Order.desc("occurredOn"), Sort.Order.desc("id")));
-        Page<Transaction> page = transactionRepository.search(userId, from, to, accountId, categoryId, t, sorted);
+        Page<Transaction> page = transactionRepository.search(userId, from, to, accountId, categoryId, t, pageable);
         List<TransactionVo> vos = page.getContent().stream().map(this::toVo).toList();
         fillDisplayNames(vos);
-        return new PageImpl<>(vos, sorted, page.getTotalElements());
+        return new PageImpl<>(vos, pageable, page.getTotalElements());
     }
 
     @Transactional
@@ -150,17 +146,17 @@ public class TransactionService {
     private void validateTransfer(String type, Long fromId, Long toId, Account fromAcc, Account toAcc) {
         if ("TRANSFER".equals(type)) {
             if (fromAcc == null || toAcc == null) {
-                throw new IllegalArgumentException("转账需要源账户和目标账户");
+                throw new IllegalArgumentException("Transfer requires both a source and a destination account");
             }
             if (fromId.equals(toId)) {
-                throw new IllegalArgumentException("源账户和目标账户不能相同");
+                throw new IllegalArgumentException("Source and destination accounts cannot be the same");
             }
         }
     }
 
     private Transaction mustOwn(String userId, Long id) {
         return transactionRepository.findByIdAndUserId(id, userId)
-                .orElseThrow(() -> new NoSuchElementException("交易不存在"));
+                .orElseThrow(() -> new NoSuchElementException("Transaction not found"));
     }
 
     private void adjustBalance(Long accountId, BigDecimal delta) {

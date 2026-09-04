@@ -24,7 +24,7 @@ public class TransactionOwnershipChecker {
     public Account mustOwnAccount(String userId, Long accountId) {
         Account a = accountRepository.findById(accountId).orElse(null);
         if (a == null || !userId.equals(a.getUserId())) {
-            throw new IllegalArgumentException("账户无效");
+            throw new IllegalArgumentException("Invalid account");
         }
         return a;
     }
@@ -32,14 +32,14 @@ public class TransactionOwnershipChecker {
     public void mustOwnCategory(String userId, Long categoryId, String type) {
         Category c = categoryRepository.findById(categoryId).orElse(null);
         if (c == null) {
-            throw new IllegalArgumentException("分类无效");
+            throw new IllegalArgumentException("Invalid category");
         }
         if (c.getUserId() != null && !userId.equals(c.getUserId())) {
-            throw new IllegalArgumentException("分类无效");
+            throw new IllegalArgumentException("Invalid category");
         }
         if ("TRANSFER".equals(type)) return;
         if (!type.equals(c.getType())) {
-            throw new IllegalArgumentException("分类类型不匹配");
+            throw new IllegalArgumentException("Category type mismatch");
         }
     }
 }
