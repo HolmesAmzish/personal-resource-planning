@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$/backend" />
             <option value="$PROJECT_DIR$/backend/prp-app" />
             <option value="$PROJECT_DIR$/backend/prp-common" />
+            <option value="$PROJECT_DIR$/backend/prp-finance" />
+            <option value="$PROJECT_DIR$/backend/prp-society" />
             <option value="$PROJECT_DIR$/backend/prp-task" />
           </set>
         </option>

@@ -1,7 +1,8 @@
-import { FolderKanban, Landmark, LayoutDashboard, ListTodo, UserRound } from 'lucide-react'
+import { FolderKanban, Landmark, LayoutDashboard, ListTodo, Monitor, Moon, Sun, UserRound } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../shared/auth/AuthContext'
 import { cn } from '../shared/lib/cn'
+import { useTheme, type Theme } from '../shared/theme/ThemeContext'
 
 const groups = [
   {
@@ -25,6 +26,35 @@ const groups = [
     items: [{ to: '/hr', label: 'HR (Coming soon)', Icon: UserRound }],
   },
 ]
+
+function ThemeSwitcher() {
+  const { theme, setTheme } = useTheme()
+  const opts: { v: Theme; Icon: typeof Sun; label: string }[] = [
+    { v: 'system', Icon: Monitor, label: 'Auto' },
+    { v: 'light', Icon: Sun, label: 'Light' },
+    { v: 'dark', Icon: Moon, label: 'Dark' },
+  ]
+  return (
+    <div className="flex items-center p-1 rounded-full bg-muted border border-border mb-2">
+      {opts.map(({ v, Icon, label }) => (
+        <button
+          key={v}
+          onClick={() => setTheme(v)}
+          className={cn(
+            'flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors',
+            theme === v
+              ? 'bg-card text-foreground shadow-sm border border-border'
+              : 'text-muted-foreground hover:text-foreground',
+          )}
+          title={label}
+        >
+          <Icon size={12} />
+          <span className="hidden xl:inline">{label}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { user } = useAuth()
@@ -72,6 +102,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           ))}
         </nav>
         <div className="p-3">
+          <ThemeSwitcher />
           <div className="rounded-xl bg-muted border border-border p-3 flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center text-[12px] font-medium shrink-0">
               {(user?.profile?.preferred_username ?? 'U').slice(0, 1).toUpperCase()}
