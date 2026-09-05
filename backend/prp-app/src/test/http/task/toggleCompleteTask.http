@@ -1,6 +1,9 @@
 @baseUrl = http://localhost:8080
 @token = {{accessToken}}
 
-### Toggle complete
-PUT {{baseUrl}}/api/task/toggleComplete/1
+### Change status
+PUT {{baseUrl}}/api/task/1/status
 Authorization: Bearer {{token}}
+Content-Type: application/json
+
+"COMPLETED"

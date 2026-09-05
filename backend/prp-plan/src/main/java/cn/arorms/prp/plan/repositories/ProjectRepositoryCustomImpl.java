@@ -1,9 +1,9 @@
-package cn.arorms.prp.task.repositories;
+package cn.arorms.prp.plan.repositories;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
-import static cn.arorms.prp.task.entities.QProject.project;
+import static cn.arorms.prp.plan.entities.QProject.project;
 
 /**
  * QueryDSL implementation for project order-index shifting

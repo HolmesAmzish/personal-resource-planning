@@ -1,4 +1,4 @@
-package cn.arorms.prp.task.entities;
+package cn.arorms.prp.plan.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -31,8 +31,10 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "is_completed")
-    private Boolean isCompleted = false;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 16)
+    @Builder.Default
+    private TaskStatus status = TaskStatus.NOT_STARTED;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();

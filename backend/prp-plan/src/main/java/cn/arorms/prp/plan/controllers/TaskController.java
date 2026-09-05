@@ -1,8 +1,9 @@
-package cn.arorms.prp.task.controllers;
+package cn.arorms.prp.plan.controllers;
 
 import cn.arorms.framework.security.UserPrincipal;
-import cn.arorms.prp.task.entities.Task;
-import cn.arorms.prp.task.services.TaskService;
+import cn.arorms.prp.plan.entities.Task;
+import cn.arorms.prp.plan.entities.TaskStatus;
+import cn.arorms.prp.plan.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,13 +63,14 @@ public class TaskController {
         return ResponseEntity.ok(taskService.addTask(userPrincipal.getId(), task));
     }
 
-    // Toggle completion status of an entity
-    @PutMapping("/toggleComplete/{id}")
-    public ResponseEntity<Task> toggleCompleteTask(
+    // Change status of an entity
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Task> changeTaskStatus(
             @AuthenticationPrincipal UserPrincipal userPrincipal,
-            @PathVariable Long id
+            @PathVariable Long id,
+            @RequestBody TaskStatus status
     ) {
-        return ResponseEntity.ok(taskService.toggleCompleted(userPrincipal.getId(), id));
+        return ResponseEntity.ok(taskService.changeStatus(userPrincipal.getId(), id, status));
     }
 
     // Modify

@@ -11,14 +11,6 @@ allprojects {
     version = "0.0.1-SNAPSHOT"
 
     repositories {
-        maven {
-            url = uri("https://nexus.arorms.cn/repository/maven-public/")
-            mavenContent { includeGroup("cn.arorms.framework") }
-            credentials {
-                username = providers.gradleProperty("nexusUsername").get()
-                password = providers.gradleProperty("nexusPassword").get()
-            }
-        }
         mavenCentral()
     }
 }

@@ -9,9 +9,9 @@ import {
   deleteTask,
   listProjects,
   listTasks,
-  toggleTask,
+  changeTaskStatus,
 } from '../api'
-import type { Project, Task } from '../types'
+import type { Project, Task, TaskStatus } from '../types'
 import { EditTaskModal } from '../components/EditTaskModal'
 import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TaskItem } from '../components/TaskItem'
@@ -95,8 +95,8 @@ export function TasksPage() {
                 <TaskItem
                   key={t.id}
                   task={t}
-                  onToggle={async () => {
-                    await toggleTask(t.id)
+                  onStatusChange={async (status: TaskStatus) => {
+                    await changeTaskStatus(t.id, status)
                     await load()
                   }}
                   onDelete={async () => {

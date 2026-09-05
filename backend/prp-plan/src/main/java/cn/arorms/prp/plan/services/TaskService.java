@@ -1,8 +1,9 @@
-package cn.arorms.prp.task.services;
+package cn.arorms.prp.plan.services;
 
-import cn.arorms.prp.task.entities.Task;
-import cn.arorms.prp.task.repositories.ProjectRepository;
-import cn.arorms.prp.task.repositories.TaskRepository;
+import cn.arorms.prp.plan.entities.Task;
+import cn.arorms.prp.plan.entities.TaskStatus;
+import cn.arorms.prp.plan.repositories.ProjectRepository;
+import cn.arorms.prp.plan.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class TaskService {
     }
 
     public Page<Task> getAllByUserId(Pageable pageable, String userId, Long projectId) {
-        Sort sort = Sort.by(Sort.Order.asc("isCompleted"),
+        Sort sort = Sort.by(Sort.Order.asc("status"),
                 Sort.Order.desc("createdAt"));
 
         Pageable sortedPageable = PageRequest.of(
@@ -72,11 +73,11 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    // Toggle isCompleted
-    public Task toggleCompleted(String userId, Long id) {
+    // Change status
+    public Task changeStatus(String userId, Long id, TaskStatus status) {
         Task existingTask = taskRepository.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new NoSuchElementException("Can not found existing task."));
-        existingTask.setIsCompleted(!existingTask.getIsCompleted());
+        existingTask.setStatus(status);
         return taskRepository.save(existingTask);
     }
 

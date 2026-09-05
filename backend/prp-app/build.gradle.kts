@@ -4,12 +4,12 @@ plugins {
 
 dependencies {
     implementation(project(":prp-common"))
-    implementation(project(":prp-task"))
+    implementation(project(":prp-plan"))
     implementation(project(":prp-finance"))
     implementation(project(":prp-society"))
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
-    implementation("cn.arorms.framework:arorms-security:1.0-SNAPSHOT")
+    implementation("cn.arorms.framework:arorms-security:1.0.0")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

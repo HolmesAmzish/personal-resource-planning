@@ -7,9 +7,9 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="prp.prp-society.test" />
         <module name="prp.prp-finance.test" />
         <module name="prp.prp-society.main" />
+        <module name="prp.prp-society.test" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
@@ -26,7 +26,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt/ecj/3.26.0/4837be609a3368a0f7e7cf0dc1bdbc7fe94993de/ecj-3.26.0.jar" />
         </processorPath>
         <module name="prp.prp-finance.main" />
-        <module name="prp.prp-task.main" />
+        <module name="prp.prp-plan.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -36,6 +36,9 @@
       <module name="prp.prp-api" target="21" />
       <module name="prp.prp-api.main" target="21" />
       <module name="prp.prp-api.test" target="21" />
+      <module name="prp.prp-task" target="21" />
+      <module name="prp.prp-task.main" target="21" />
+      <module name="prp.prp-task.test" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

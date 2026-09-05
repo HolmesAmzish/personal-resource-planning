@@ -1,5 +1,5 @@
 import { apiClient } from '../../shared/lib/apiClient'
-import type { Page, Project, Task } from './types'
+import type { Page, Project, Task, TaskStatus } from './types'
 
 export async function listTasks(params: { page: number; size: number; projectId?: number | null }): Promise<Page<Task>> {
   const res = await apiClient.get('/task', { params: { page: params.page, size: params.size, projectId: params.projectId ?? undefined } })
@@ -21,8 +21,8 @@ export async function createTask(body: { title: string; description?: string; de
   return res.data as Task
 }
 
-export async function toggleTask(id: number): Promise<Task> {
-  const res = await apiClient.put(`/task/toggleComplete/${id}`)
+export async function changeTaskStatus(id: number, status: TaskStatus): Promise<Task> {
+  const res = await apiClient.put(`/task/${id}/status`, status)
   return res.data as Task
 }
 

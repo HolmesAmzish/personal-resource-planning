@@ -1,8 +1,8 @@
-package cn.arorms.prp.task.controllers;
+package cn.arorms.prp.plan.controllers;
 
 import cn.arorms.framework.security.UserPrincipal;
-import cn.arorms.prp.task.entities.Project;
-import cn.arorms.prp.task.services.ProjectService;
+import cn.arorms.prp.plan.entities.Project;
+import cn.arorms.prp.plan.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

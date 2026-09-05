@@ -1,3 +1,7 @@
+export type TaskStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
+
+export const TASK_STATUSES: TaskStatus[] = ['NOT_STARTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED']
+
 export interface Project {
   id: number
   name: string
@@ -12,7 +16,7 @@ export interface Task {
   project?: Project | null
   title: string
   description?: string | null
-  isCompleted?: boolean
+  status?: TaskStatus
   createdAt?: string
   deadline?: string | null
 }

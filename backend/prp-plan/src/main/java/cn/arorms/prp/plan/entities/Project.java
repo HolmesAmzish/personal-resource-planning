@@ -1,4 +1,4 @@
-package cn.arorms.prp.task.entities;
+package cn.arorms.prp.plan.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

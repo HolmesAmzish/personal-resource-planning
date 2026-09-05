@@ -1,7 +1,7 @@
-package cn.arorms.prp.task.services;
+package cn.arorms.prp.plan.services;
 
-import cn.arorms.prp.task.entities.Project;
-import cn.arorms.prp.task.repositories.ProjectRepository;
+import cn.arorms.prp.plan.entities.Project;
+import cn.arorms.prp.plan.repositories.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

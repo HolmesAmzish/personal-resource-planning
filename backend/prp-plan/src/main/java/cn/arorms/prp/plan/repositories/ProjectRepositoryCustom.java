@@ -1,4 +1,4 @@
-package cn.arorms.prp.task.repositories;
+package cn.arorms.prp.plan.repositories;
 
 /**
  * QueryDSL fragment replacing order-index shift bulk updates.

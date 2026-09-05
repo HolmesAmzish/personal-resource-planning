@@ -1,6 +1,6 @@
-package cn.arorms.prp.task.repositories;
+package cn.arorms.prp.plan.repositories;
 
-import cn.arorms.prp.task.entities.Project;
+import cn.arorms.prp.plan.entities.Project;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

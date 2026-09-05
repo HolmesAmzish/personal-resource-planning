@@ -5,9 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/personal-resource-planning.iml" filepath="$PROJECT_DIR$/.idea/personal-resource-planning.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.test.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-plan/prp.prp-plan.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-plan/prp.prp-plan.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-society/prp.prp-society.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-society/prp.prp-society.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-society/prp.prp-society.test.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-society/prp.prp-society.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-task/prp.prp-task.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-task/prp.prp-task.main.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,6 @@
-package cn.arorms.prp.task.repositories;
+package cn.arorms.prp.plan.repositories;
 
-import cn.arorms.prp.task.entities.Task;
+import cn.arorms.prp.plan.entities.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
