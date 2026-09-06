@@ -28,13 +28,13 @@ public class TransactionController {
     @GetMapping
     public Page<TransactionVo> list(
             @AuthenticationPrincipal UserPrincipal user,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
-            @RequestParam(required = false) Long accountId,
-            @RequestParam(required = false) Long categoryId,
-            @RequestParam(required = false) String type,
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "20") int size) {
+            @RequestParam(name = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(name = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(name = "accountId", required = false) Long accountId,
+            @RequestParam(name = "categoryId", required = false) Long categoryId,
+            @RequestParam(name = "type", required = false) String type,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "20") int size) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
         return transactionService.list(user.getId(), from, to, accountId, categoryId, type, pageable);
     }

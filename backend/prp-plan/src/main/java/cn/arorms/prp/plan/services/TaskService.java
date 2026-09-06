@@ -1,7 +1,7 @@
 package cn.arorms.prp.plan.services;
 
 import cn.arorms.prp.plan.entities.Task;
-import cn.arorms.prp.plan.entities.TaskStatus;
+import cn.arorms.prp.plan.enums.TaskStatus;
 import cn.arorms.prp.plan.repositories.ProjectRepository;
 import cn.arorms.prp.plan.repositories.TaskRepository;
 import org.slf4j.Logger;

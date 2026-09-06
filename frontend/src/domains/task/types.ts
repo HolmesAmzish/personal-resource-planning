@@ -1,6 +1,6 @@
-export type TaskStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
+export type TaskStatus = 'PENDING' | 'COMPLETED' | 'CANCELLED'
 
-export const TASK_STATUSES: TaskStatus[] = ['NOT_STARTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED']
+export const TASK_STATUSES: TaskStatus[] = ['PENDING', 'COMPLETED', 'CANCELLED']
 
 export interface Project {
   id: number

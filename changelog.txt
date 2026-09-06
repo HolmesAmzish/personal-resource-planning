@@ -1,3 +1,6 @@
+v0.0.3
+1. Fix task enum status
+
 v0.0.2
 1. Add dark theme
 

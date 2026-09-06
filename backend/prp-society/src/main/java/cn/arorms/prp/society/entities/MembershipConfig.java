@@ -26,7 +26,6 @@ import java.util.Map;
 @Table(
     name = "membership_configs",
     indexes = {
-        @Index(name = "idx_membership_configs_type", columnList = "membership_type"),
         @Index(name = "idx_membership_configs_org", columnList = "organization_id")
     }
 )

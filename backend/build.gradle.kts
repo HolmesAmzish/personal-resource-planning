@@ -8,7 +8,7 @@ plugins {
 
 allprojects {
     group = "cn.arorms"
-    version = "0.0.1-SNAPSHOT"
+    version = "0.0.3"
 
     repositories {
         mavenCentral()
@@ -29,6 +29,10 @@ subprojects {
         toolchain {
             languageVersion = JavaLanguageVersion.of(21)
         }
+    }
+
+    tasks.withType<JavaCompile> {
+        options.compilerArgs.add("-parameters")
     }
 
     tasks.withType<Test> {

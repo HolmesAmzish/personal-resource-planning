@@ -11,7 +11,7 @@ export function TaskItem({ task, onStatusChange, onDelete }: { task: Task; onSta
     <div className="px-6 py-4 flex items-start gap-3 hover:bg-muted transition-colors">
       <select
         aria-label={t('tasks.status')}
-        value={task.status ?? 'NOT_STARTED'}
+        value={task.status ?? 'PENDING'}
         onChange={(e) => onStatusChange(e.target.value as TaskStatus)}
         className="mt-0.5 h-8 rounded-lg bg-muted border border-transparent px-2 text-[12px] text-foreground focus:outline-none focus:bg-card focus:border-border"
       >

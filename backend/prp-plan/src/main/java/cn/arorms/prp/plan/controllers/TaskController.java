@@ -2,7 +2,7 @@ package cn.arorms.prp.plan.controllers;
 
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.plan.entities.Task;
-import cn.arorms.prp.plan.entities.TaskStatus;
+import cn.arorms.prp.plan.enums.TaskStatus;
 import cn.arorms.prp.plan.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

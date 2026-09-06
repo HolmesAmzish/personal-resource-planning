@@ -52,6 +52,18 @@
       <module name="prp.prp-app" options="-parameters" />
       <module name="prp.prp-app.main" options="-parameters" />
       <module name="prp.prp-app.test" options="-parameters" />
+      <module name="prp.prp-common" options="-parameters" />
+      <module name="prp.prp-common.main" options="-parameters" />
+      <module name="prp.prp-common.test" options="-parameters" />
+      <module name="prp.prp-finance" options="-parameters" />
+      <module name="prp.prp-finance.main" options="-parameters" />
+      <module name="prp.prp-finance.test" options="-parameters" />
+      <module name="prp.prp-plan" options="-parameters" />
+      <module name="prp.prp-plan.main" options="-parameters" />
+      <module name="prp.prp-plan.test" options="-parameters" />
+      <module name="prp.prp-society" options="-parameters" />
+      <module name="prp.prp-society.main" options="-parameters" />
+      <module name="prp.prp-society.test" options="-parameters" />
     </option>
   </component>
 </project>

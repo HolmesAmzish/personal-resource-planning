@@ -10,5 +10,5 @@ Content-Type: application/json
   "id": 1,
   "title": "Updated title",
   "description": "Updated description",
-  "status": "NOT_STARTED"
+  "status": "PENDING"
 }

@@ -4,7 +4,8 @@ import { fmtMoney } from '../../../shared/lib/format'
 import { useT } from '../../../shared/i18n/TranslationContext'
 import { usePage } from '../../../shared/hooks/usePage'
 import { Badge, Button, Card, Empty, Spinner } from '../../../shared/ui'
-import { deleteAccount, listAccounts, totalBalance } from '../api'
+import { createAccount, deleteAccount, listAccounts, totalBalance } from '../api'
+import { AddAccountModal } from '../components/AddAccountModal'
 import type { Account, CurrencyTotal } from '../types'
 
 export function AccountsPage() {
@@ -15,6 +16,7 @@ export function AccountsPage() {
   const [totals, setTotals] = useState<CurrencyTotal[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [modal, setModal] = useState(false)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -37,11 +39,16 @@ export function AccountsPage() {
 
   return (
     <div className="space-y-5">
-      <div>
-        <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('finance.accountsTitle')}</h1>
-        <p className="text-[13px] text-muted-foreground mt-1">
-          {total} {t('finance.accountsSubtitle')}
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-[22px] font-semibold leading-tight text-foreground">{t('finance.accountsTitle')}</h1>
+          <p className="text-[13px] text-muted-foreground mt-1">
+            {total} {t('finance.accountsSubtitle')}
+          </p>
+        </div>
+        <Button variant="primary" onClick={() => setModal(true)}>
+          {t('finance.newAccount')}
+        </Button>
       </div>
       <div className="flex flex-wrap gap-2">
         {totals.map((t) => (
@@ -64,7 +71,14 @@ export function AccountsPage() {
           </div>
         ) : rows.length === 0 ? (
           <div className="p-4">
-            <Empty message={t('finance.noAccounts')} />
+            <Empty
+              message={t('finance.noAccounts')}
+              action={(
+                <Button variant="primary" onClick={() => setModal(true)}>
+                  {t('finance.newAccount')}
+                </Button>
+              )}
+            />
           </div>
         ) : (
           <div className="divide-y divide-border">
@@ -109,6 +123,18 @@ export function AccountsPage() {
           </div>
         </div>
       </Card>
+
+      {modal && (
+        <AddAccountModal
+          onClose={() => setModal(false)}
+          onSubmit={async (account) => {
+            await createAccount(account)
+            setModal(false)
+            setPage(0)
+            await load()
+          }}
+        />
+      )}
     </div>
   )
 }

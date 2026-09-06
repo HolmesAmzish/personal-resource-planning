@@ -1,5 +1,6 @@
 package cn.arorms.prp.plan.entities;
 
+import cn.arorms.prp.plan.enums.TaskStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,9 +33,9 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 16)
+    @Column(name = "status", length = 16)
     @Builder.Default
-    private TaskStatus status = TaskStatus.NOT_STARTED;
+    private TaskStatus status = TaskStatus.PENDING;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
