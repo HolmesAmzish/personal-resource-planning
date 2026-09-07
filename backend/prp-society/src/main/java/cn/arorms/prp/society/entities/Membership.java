@@ -1,6 +1,6 @@
 package cn.arorms.prp.society.entities;
 
-import cn.arorms.prp.common.entities.BaseEntity;
+import cn.arorms.framework.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,7 +16,10 @@ import java.util.Map;
  * A natural person's role inside an organization.
  *
  * <p>Typed common fields are kept here; role-specific fields live in
- * {@code extendJson} according to a {@link MembershipConfig} schema.</p>
+ * {@code extendJson} according to a {@link MembershipExtendField} schema.</p>
+ * @version 0.1.0 2026-09-07
+ * @author cacc
+ * @since 2026-09-07
  */
 @Getter
 @Setter

@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * TaskController
- * @version 1.0 2026-09-03
- * @author Cacciatore
+ * @version 0.0.4 2026-09-04
+ * @author cacc
+ * @since 2026-09-03
  */
 @RestController
 @RequestMapping("/api/task")

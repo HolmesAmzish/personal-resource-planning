@@ -12,6 +12,7 @@ allprojects {
 
     repositories {
         mavenCentral()
+        maven("https://gitlab.arorms.cn/api/v4/projects/14/packages/maven")
     }
 }
 

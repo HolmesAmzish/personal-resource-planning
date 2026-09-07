@@ -12,8 +12,9 @@ import java.util.List;
 
 /**
  * ProjectController
- * @version 1.0 2026-09-03
- * @author Cacciatore
+ * @version 0.0.4 2026-09-04
+ * @author cacc
+ * @since 2026-09-03
  */
 @RestController @RequestMapping("/api/project")
 public class ProjectController {

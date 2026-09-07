@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/personal-resource-planning.iml" filepath="$PROJECT_DIR$/.idea/personal-resource-planning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-common/prp.prp-common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-common/prp.prp-common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.test.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-finance/prp.prp-finance.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/prp-plan/prp.prp-plan.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prp-plan/prp.prp-plan.main.iml" />

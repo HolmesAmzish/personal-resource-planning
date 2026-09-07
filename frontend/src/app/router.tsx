@@ -10,7 +10,7 @@ import { CategoriesPage } from '../domains/finance/pages/CategoriesPage'
 import { FinanceDashboardPage } from '../domains/finance/pages/FinanceDashboardPage'
 import { StatisticsPage } from '../domains/finance/pages/StatisticsPage'
 import { TransactionsPage } from '../domains/finance/pages/TransactionsPage'
-import { HrPlaceholderPage } from '../domains/hr/HrPlaceholderPage'
+import { SocietyPage } from '../domains/society/pages/SocietyPage'
 
 function guard(el: React.JSX.Element) {
   return <PrivateRoute>{el}</PrivateRoute>
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
       { path: '/finance/transactions', element: guard(<TransactionsPage />) },
       { path: '/finance/categories', element: guard(<CategoriesPage />) },
       { path: '/finance/statistics', element: guard(<StatisticsPage />) },
-      { path: '/hr', element: guard(<HrPlaceholderPage />) },
+      { path: '/society', element: guard(<SocietyPage />) },
     ],
   },
 ])

@@ -56,8 +56,8 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
       ],
     },
     {
-      title: t('nav.people'),
-      items: [{ to: '/hr', label: t('nav.hrComingSoon'), Icon: UserRound }],
+      title: t('nav.society'),
+      items: [{ to: '/society', label: t('nav.society'), Icon: UserRound }],
     },
   ]
   return (

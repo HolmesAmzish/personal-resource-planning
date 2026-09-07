@@ -1,6 +1,5 @@
 package cn.arorms.prp.society.entities;
 
-import cn.arorms.prp.common.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,23 +10,17 @@ import java.time.LocalDate;
 
 /**
  * Natural person. Keeps its identity information directly on this table.
+ * @version 0.1.0 2026-09-07
+ * @author cacc
+ * @since 2026-09-07
  */
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
-@Entity
-@Table
+@Entity @Table(name = "persons")
+@DiscriminatorValue("PERSON")
+@PrimaryKeyJoinColumn(name = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Person extends BaseEntity {
-
-    @Column(name = "display_name", nullable = false, length = 128)
-    private String displayName;
-
-    @Column(name = "identity_type", length = 32)
-    private String identityType;
-
-    @Column(name = "identity_code", length = 64)
-    private String identityCode;
+public class Person extends Party {
 
     @Column(length = 16)
     private String gender;

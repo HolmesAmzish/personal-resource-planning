@@ -1,0 +1,78 @@
+@baseUrl = http://localhost:8085
+@token = {{accessToken}}
+
+### Search parties
+GET {{baseUrl}}/api/society/parties?page=0&size=20&q=
+Authorization: Bearer {{token}}
+
+### Create person with contacts
+POST {{baseUrl}}/api/society/parties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "partyType": "PERSON",
+  "name": "张三",
+  "identityCode": "110101199001011234",
+  "address": "北京市东城区",
+  "gender": "male",
+  "birthDate": "1990-01-01",
+  "contacts": [
+    { "contactType": "TELEPHONE", "content": "13800000000" },
+    { "contactType": "EMAIL", "content": "zhangsan@example.com" }
+  ]
+}
+
+### Create organization
+POST {{baseUrl}}/api/society/parties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "partyType": "ORGANIZATION",
+  "name": "Arorms",
+  "address": "上海市浦东新区",
+  "website": "https://arorms.cn"
+}
+
+### Party detail
+GET {{baseUrl}}/api/society/parties/1
+Authorization: Bearer {{token}}
+
+### Add a membership field to organization 2
+POST {{baseUrl}}/api/society/organizations/2/membership-fields
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fieldKey": "memberNo",
+  "fieldName": "会员编号",
+  "fieldValue": "M-0001",
+  "sortOrder": 10
+}
+
+### List organization membership fields
+GET {{baseUrl}}/api/society/organizations/2/membership-fields
+Authorization: Bearer {{token}}
+
+### Create membership with organization-defined fields
+POST {{baseUrl}}/api/society/memberships
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "personId": 1,
+  "organizationId": 2,
+  "note": "普通会员",
+  "extendJson": {
+    "memberNo": "M-2026-001"
+  }
+}
+
+### Search memberships
+GET {{baseUrl}}/api/society/memberships?page=0&size=20&q=Arorms
+Authorization: Bearer {{token}}
+
+### Search shared contacts
+GET {{baseUrl}}/api/society/contacts?page=0&size=20&q=zhangsan
+Authorization: Bearer {{token}}

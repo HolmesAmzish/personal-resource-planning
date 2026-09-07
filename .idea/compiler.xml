@@ -7,9 +7,11 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
+        <module name="prp.prp-society.test" />
+        <module name="prp.prp-common.main" />
+        <module name="prp.prp-common.test" />
         <module name="prp.prp-finance.test" />
         <module name="prp.prp-society.main" />
-        <module name="prp.prp-society.test" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />

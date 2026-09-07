@@ -1,6 +1,5 @@
 package cn.arorms.prp.society.entities;
 
-import cn.arorms.prp.common.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,23 +8,17 @@ import lombok.Setter;
 
 /**
  * Organization. Keeps its identity information directly on this table.
+ * @version 0.1.0 2026-09-04
+ * @author cacc
+ * @since 2026-09-03
  */
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "organizations")
+@Entity @Table(name = "organizations")
+@DiscriminatorValue("ORGANIZATION")
+@PrimaryKeyJoinColumn(name = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Organization extends BaseEntity {
-
-    @Column(name = "display_name", nullable = false, length = 128)
-    private String displayName;
-
-    @Column(name = "identity_code", length = 64)
-    private String identityCode;
-
-    @Column(length = 255)
-    private String address;
+public class Organization extends Party {
 
     @Column(length = 128)
     private String website;
