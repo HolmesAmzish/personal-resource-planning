@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from 'react'
 import { X } from 'lucide-react'
 import { useT } from './i18n/TranslationContext'
 import { cn } from './lib/cn'
@@ -59,6 +59,21 @@ export function Input({ className, ...rest }: InputHTMLAttributes<HTMLInputEleme
       )}
       {...rest}
     />
+  )
+}
+
+export function Select({ className, children, ...rest }: SelectHTMLAttributes<HTMLSelectElement> & { children: ReactNode }) {
+  return (
+    <select
+      className={cn(
+        'w-full rounded-xl bg-muted border border-transparent px-3 py-2.5 text-[13px] text-foreground',
+        'focus:outline-none focus:bg-card focus:border-border',
+        className,
+      )}
+      {...rest}
+    >
+      {children}
+    </select>
   )
 }
 
