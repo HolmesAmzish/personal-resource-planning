@@ -1,5 +1,5 @@
 import { apiClient } from '../../shared/lib/apiClient'
-import type { Page } from '../task/types'
+import type { PageResponse } from '../../shared/types'
 import type {
   Contact,
   ContactDto,
@@ -18,9 +18,9 @@ export async function listParties(params: {
   q?: string
   page: number
   size: number
-}): Promise<Page<Party>> {
+}): Promise<PageResponse<Party>> {
   const res = await apiClient.get('/society/parties', { params })
-  return res.data as Page<Party>
+  return res.data as PageResponse<Party>
 }
 
 export async function getParty(id: number): Promise<Party> {
@@ -48,9 +48,9 @@ export async function listContacts(params: {
   q?: string
   page: number
   size: number
-}): Promise<Page<Contact>> {
+}): Promise<PageResponse<Contact>> {
   const res = await apiClient.get('/society/contacts', { params })
-  return res.data as Page<Contact>
+  return res.data as PageResponse<Contact>
 }
 
 export async function createContact(body: ContactDto): Promise<Contact> {
@@ -73,9 +73,9 @@ export async function listMemberships(params: {
   q?: string
   page: number
   size: number
-}): Promise<Page<Membership>> {
+}): Promise<PageResponse<Membership>> {
   const res = await apiClient.get('/society/memberships', { params })
-  return res.data as Page<Membership>
+  return res.data as PageResponse<Membership>
 }
 
 export async function createMembership(body: MembershipDto): Promise<Membership> {

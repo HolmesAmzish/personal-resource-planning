@@ -1,5 +1,5 @@
 import { apiClient } from '../../shared/lib/apiClient'
-import type { Page } from '../task/types'
+import type { PageResponse } from '../../shared/types'
 import type {
   Account,
   AccountBalance,
@@ -14,9 +14,9 @@ import type {
   TrendPoint,
 } from './types'
 
-export async function listAccounts(params: { page: number; size: number }): Promise<Page<Account>> {
+export async function listAccounts(params: { page: number; size: number }): Promise<PageResponse<Account>> {
   const res = await apiClient.get('/accounts', { params })
-  return res.data as Page<Account>
+  return res.data as PageResponse<Account>
 }
 
 export async function createAccount(body: AccountDto): Promise<number> {
@@ -63,9 +63,9 @@ export async function listTransactions(params: {
   type?: string
   page: number
   size: number
-}): Promise<Page<Transaction>> {
+}): Promise<PageResponse<Transaction>> {
   const res = await apiClient.get('/transactions', { params })
-  return res.data as Page<Transaction>
+  return res.data as PageResponse<Transaction>
 }
 
 export async function createTransaction(body: TransactionDto): Promise<number> {

@@ -9,6 +9,16 @@ interface Summary {
   totalExpense: string | number
 }
 
+interface CountedPage {
+  total?: number
+  totalElements?: number
+}
+
+function pageCount(payload: unknown): number | null {
+  const page = payload as CountedPage | null | undefined
+  return page?.total ?? page?.totalElements ?? null
+}
+
 export function OverviewPage() {
   const t = useT()
   const [openTasks, setOpenTasks] = useState<number | null>(null)
@@ -26,8 +36,8 @@ export function OverviewPage() {
           apiClient.get<Summary>('/statistics/summary', { params: { from: '2026-01-01', to: '2026-12-31' } }),
         ])
         if (cancelled) return
-        setOpenTasks(tasks.data.totalElements ?? null)
-        setAccounts(accs.data.totalElements ?? null)
+        setOpenTasks(pageCount(tasks.data))
+        setAccounts(pageCount(accs.data))
         const income = Number(summary.data.totalIncome ?? 0)
         const expense = Number(summary.data.totalExpense ?? 0)
         setMonthNet((income - expense).toLocaleString('en-US', { minimumFractionDigits: 2 }))

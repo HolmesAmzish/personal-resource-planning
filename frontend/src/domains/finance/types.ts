@@ -1,6 +1,4 @@
-import type { Page } from '../task/types'
-
-export type { Page }
+export type { PageResponse } from '../../shared/types'
 
 export interface Account {
   id: number

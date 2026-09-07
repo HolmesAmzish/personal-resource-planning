@@ -8,6 +8,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation(project(":prp-common"))
+    implementation("cn.arorms.framework:arorms-common:1.0.1")
     implementation("cn.arorms.framework:arorms-security:1.0.0")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

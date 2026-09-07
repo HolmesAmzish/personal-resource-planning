@@ -1,12 +1,12 @@
 package cn.arorms.prp.society.controllers;
 
+import cn.arorms.framework.common.domain.PageResponse;
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.society.dtos.MembershipDto;
 import cn.arorms.prp.society.dtos.MembershipResponse;
 import cn.arorms.prp.society.services.MembershipService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +23,7 @@ public class MembershipController {
     }
 
     @GetMapping
-    public Page<MembershipResponse> list(
+    public PageResponse<MembershipResponse> list(
             @AuthenticationPrincipal UserPrincipal user,
             @RequestParam(required = false) Long personId,
             @RequestParam(required = false) Long organizationId,
@@ -32,7 +32,7 @@ public class MembershipController {
             @RequestParam(defaultValue = "20") int size
     ) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return membershipService.list(user.getId(), personId, organizationId, q, pageable);
+        return PageResponse.fromPage(membershipService.list(user.getId(), personId, organizationId, q, pageable));
     }
 
     @GetMapping("/{id}")

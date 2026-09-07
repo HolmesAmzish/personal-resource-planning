@@ -21,11 +21,4 @@ export interface Task {
   deadline?: string | null
 }
 
-export interface Page<T> {
-  content: T[]
-  totalElements: number
-  totalPages: number
-  last: boolean
-  number: number
-  size: number
-}
+export type { PageResponse } from '../../shared/types'

@@ -1,14 +1,15 @@
 import { apiClient } from '../../shared/lib/apiClient'
-import type { Page, Project, Task, TaskStatus } from './types'
+import type { PageResponse } from '../../shared/types'
+import type { Project, Task, TaskStatus } from './types'
 
-export async function listTasks(params: { page: number; size: number; projectId?: number | null }): Promise<Page<Task>> {
+export async function listTasks(params: { page: number; size: number; projectId?: number | null }): Promise<PageResponse<Task>> {
   const res = await apiClient.get('/task', { params: { page: params.page, size: params.size, projectId: params.projectId ?? undefined } })
-  return res.data as Page<Task>
+  return res.data as PageResponse<Task>
 }
 
-export async function listDeadlineTasks(params: { page: number; size: number }): Promise<Page<Task>> {
+export async function listDeadlineTasks(params: { page: number; size: number }): Promise<PageResponse<Task>> {
   const res = await apiClient.get('/task/deadline', { params })
-  return res.data as Page<Task>
+  return res.data as PageResponse<Task>
 }
 
 export async function createTask(body: { title: string; description?: string; deadline?: string | null; projectId?: number | null }): Promise<Task> {
@@ -22,7 +23,9 @@ export async function createTask(body: { title: string; description?: string; de
 }
 
 export async function changeTaskStatus(id: number, status: TaskStatus): Promise<Task> {
-  const res = await apiClient.put(`/task/${id}/status`, status)
+  const res = await apiClient.put(`/task/${id}/status`, JSON.stringify(status), {
+    headers: { 'Content-Type': 'application/json' },
+  })
   return res.data as Task
 }
 

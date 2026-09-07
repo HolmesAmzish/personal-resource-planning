@@ -1,5 +1,6 @@
 package cn.arorms.prp.society.controllers;
 
+import cn.arorms.framework.common.domain.PageResponse;
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.society.dtos.PartyDto;
 import cn.arorms.prp.society.dtos.PartyResponse;
@@ -7,7 +8,6 @@ import cn.arorms.prp.society.enums.PartyType;
 import cn.arorms.prp.society.services.PartyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +24,7 @@ public class PartyController {
     }
 
     @GetMapping
-    public Page<PartyResponse> list(
+    public PageResponse<PartyResponse> list(
             @AuthenticationPrincipal UserPrincipal user,
             @RequestParam(required = false) PartyType partyType,
             @RequestParam(required = false) String q,
@@ -32,7 +32,7 @@ public class PartyController {
             @RequestParam(defaultValue = "20") int size
     ) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return partyService.list(user.getId(), partyType, q, pageable);
+        return PageResponse.fromPage(partyService.list(user.getId(), partyType, q, pageable));
     }
 
     @GetMapping("/{id}")

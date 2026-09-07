@@ -1,11 +1,11 @@
 package cn.arorms.prp.plan.controllers;
 
+import cn.arorms.framework.common.domain.PageResponse;
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.plan.entities.Task;
 import cn.arorms.prp.plan.enums.TaskStatus;
 import cn.arorms.prp.plan.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,24 +29,24 @@ public class TaskController {
 
     // Get all tasks with pagination
     @GetMapping
-    public Page<Task> getAllTasks(
+    public PageResponse<Task> getAllTasks(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size,
             @RequestParam(value = "projectId", required = false) Long projectId,
             @AuthenticationPrincipal UserPrincipal userPrincipal
     ) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return taskService.getAllByUserId(pageable, userPrincipal.getId(), projectId);
+        return PageResponse.fromPage(taskService.getAllByUserId(pageable, userPrincipal.getId(), projectId));
     }
 
     @GetMapping("/deadline")
-    public Page<Task> getAllTasksByDeadline(
+    public PageResponse<Task> getAllTasksByDeadline(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size,
             @AuthenticationPrincipal UserPrincipal userPrincipal
     ) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return taskService.getAllByDeadline(pageable, userPrincipal.getId());
+        return PageResponse.fromPage(taskService.getAllByDeadline(pageable, userPrincipal.getId()));
     }
 
     // Get an entity detail by ID

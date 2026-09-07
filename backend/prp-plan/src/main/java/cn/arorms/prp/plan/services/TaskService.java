@@ -31,20 +31,13 @@ public class TaskService {
     }
 
     public Page<Task> getAllByUserId(Pageable pageable, String userId, Long projectId) {
-        Sort sort = Sort.by(Sort.Order.asc("status"),
-                Sort.Order.desc("createdAt"));
-
-        Pageable sortedPageable = PageRequest.of(
-                pageable.getPageNumber(),
-                pageable.getPageSize(),
-                sort
-        );
+        Pageable unsortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
         if (projectId != null) {
-            return taskRepository.findByUserIdAndProject_Id(userId, projectId, sortedPageable);
+            return taskRepository.findByUserIdAndProject_Id(userId, projectId, unsortedPageable);
         }
 
-        return taskRepository.findByUserId(userId, sortedPageable);
+        return taskRepository.findByUserId(userId, unsortedPageable);
     }
 
     public Page<Task> getAllByDeadline(Pageable pageable, String userId) {

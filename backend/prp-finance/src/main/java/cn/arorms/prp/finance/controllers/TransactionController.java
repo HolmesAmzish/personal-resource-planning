@@ -1,12 +1,12 @@
 package cn.arorms.prp.finance.controllers;
 
+import cn.arorms.framework.common.domain.PageResponse;
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.finance.dtos.TransactionDto;
 import cn.arorms.prp.finance.services.TransactionService;
 import cn.arorms.prp.finance.vos.TransactionVo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class TransactionController {
     }
 
     @GetMapping
-    public Page<TransactionVo> list(
+    public PageResponse<TransactionVo> list(
             @AuthenticationPrincipal UserPrincipal user,
             @RequestParam(name = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam(name = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
@@ -36,7 +36,9 @@ public class TransactionController {
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "20") int size) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return transactionService.list(user.getId(), from, to, accountId, categoryId, type, pageable);
+        return PageResponse.fromPage(transactionService.list(
+                user.getId(), from, to, accountId, categoryId, type, pageable
+        ));
     }
 
     @PostMapping

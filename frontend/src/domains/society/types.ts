@@ -1,6 +1,4 @@
-import type { Page } from '../task/types'
-
-export type { Page }
+export type { PageResponse } from '../../shared/types'
 
 export type PartyType = 'PERSON' | 'ORGANIZATION'
 export type ContactType = 'TELEPHONE' | 'EMAIL'

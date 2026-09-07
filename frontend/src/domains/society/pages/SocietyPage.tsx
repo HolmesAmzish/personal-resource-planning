@@ -3,6 +3,7 @@ import { Eye, Pencil, Trash2 } from 'lucide-react'
 import { toMessage } from '../../../shared/lib/apiClient'
 import { useT } from '../../../shared/i18n/TranslationContext'
 import { Badge, Button, Card, Empty, Input, Spinner } from '../../../shared/ui'
+import { hasNextPage } from '../../../shared/types'
 import {
   createContact, createMembership,
   createParty,
@@ -38,16 +39,19 @@ export function SocietyPage() {
   const [organizations, setOrganizations] = useState<Party[]>([])
   const [partyPage, setPartyPage] = useState(0)
   const [partyTotal, setPartyTotal] = useState(0)
+  const [partyIsLast, setPartyIsLast] = useState(true)
   const size = 20
 
   const [contacts, setContacts] = useState<Contact[]>([])
   const [contactPage, setContactPage] = useState(0)
   const [contactTotal, setContactTotal] = useState(0)
+  const [contactIsLast, setContactIsLast] = useState(true)
   const [contactType, setContactType] = useState('')
 
   const [memberships, setMemberships] = useState<Membership[]>([])
   const [membershipPage, setMembershipPage] = useState(0)
   const [membershipTotal, setMembershipTotal] = useState(0)
+  const [membershipIsLast, setMembershipIsLast] = useState(true)
   const [membershipPerson, setMembershipPerson] = useState('')
   const [membershipOrganization, setMembershipOrganization] = useState('')
 
@@ -69,7 +73,8 @@ export function SocietyPage() {
         size,
       })
       setParties(result.content)
-      setPartyTotal(result.totalElements)
+      setPartyTotal(result.total)
+      setPartyIsLast(result.last)
     } catch (e) {
       setError(toMessage(e))
     } finally {
@@ -95,7 +100,8 @@ export function SocietyPage() {
         size,
       })
       setContacts(result.content)
-      setContactTotal(result.totalElements)
+      setContactTotal(result.total)
+      setContactIsLast(result.last)
     } catch (e) {
       setError(toMessage(e))
     } finally {
@@ -115,7 +121,8 @@ export function SocietyPage() {
         size,
       })
       setMemberships(result.content)
-      setMembershipTotal(result.totalElements)
+      setMembershipTotal(result.total)
+      setMembershipIsLast(result.last)
     } catch (e) {
       setError(toMessage(e))
     } finally {
@@ -146,6 +153,7 @@ export function SocietyPage() {
   const total = tab === 'contacts' ? contactTotal : tab === 'memberships' ? membershipTotal : partyTotal
   const current = tab === 'contacts' ? contactPage : tab === 'memberships' ? membershipPage : partyPage
   const setPage = tab === 'contacts' ? setContactPage : tab === 'memberships' ? setMembershipPage : setPartyPage
+  const isLast = tab === 'contacts' ? contactIsLast : tab === 'memberships' ? membershipIsLast : partyIsLast
 
   return (
     <div className="space-y-5">
@@ -363,8 +371,8 @@ export function SocietyPage() {
               {t('common.page')} {current + 1}
             </span>
             <div className="flex gap-2">
-              <Button disabled={current === 0} onClick={() => setPage(current - 1)}>{t('common.previous')}</Button>
-              <Button disabled={(current + 1) * size >= total} onClick={() => setPage(current + 1)}>{t('common.next')}</Button>
+              <Button disabled={loading || current === 0} onClick={() => setPage(current - 1)}>{t('common.previous')}</Button>
+              <Button disabled={loading || !hasNextPage(current, Math.ceil(total / size), isLast)} onClick={() => setPage(current + 1)}>{t('common.next')}</Button>
             </div>
           </div>
         </Card>

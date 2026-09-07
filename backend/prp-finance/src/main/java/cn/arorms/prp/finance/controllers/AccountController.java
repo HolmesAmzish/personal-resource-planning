@@ -1,5 +1,6 @@
 package cn.arorms.prp.finance.controllers;
 
+import cn.arorms.framework.common.domain.PageResponse;
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.finance.dtos.AccountDto;
 import cn.arorms.prp.finance.services.AccountService;
@@ -7,7 +8,6 @@ import cn.arorms.prp.finance.vos.AccountVo;
 import cn.arorms.prp.finance.vos.CurrencyTotalVo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,12 +30,12 @@ public class AccountController {
     }
 
     @GetMapping
-    public Page<AccountVo> list(
+    public PageResponse<AccountVo> list(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size,
             @AuthenticationPrincipal UserPrincipal user) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return accountService.list(user.getId(), pageable);
+        return PageResponse.fromPage(accountService.list(user.getId(), pageable));
     }
 
     @PostMapping

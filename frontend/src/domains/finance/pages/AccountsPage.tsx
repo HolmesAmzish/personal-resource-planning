@@ -4,6 +4,7 @@ import { fmtMoney } from '../../../shared/lib/format'
 import { useT } from '../../../shared/i18n/TranslationContext'
 import { usePage } from '../../../shared/hooks/usePage'
 import { Badge, Button, Card, Empty, Spinner } from '../../../shared/ui'
+import { hasNextPage } from '../../../shared/types'
 import { createAccount, deleteAccount, listAccounts, totalBalance } from '../api'
 import { AddAccountModal } from '../components/AddAccountModal'
 import type { Account, CurrencyTotal } from '../types'
@@ -13,6 +14,7 @@ export function AccountsPage() {
   const { page, size, setPage } = usePage(20)
   const [rows, setRows] = useState<Account[]>([])
   const [total, setTotal] = useState(0)
+  const [isLast, setIsLast] = useState(true)
   const [totals, setTotals] = useState<CurrencyTotal[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +26,8 @@ export function AccountsPage() {
     try {
       const [a, t] = await Promise.all([listAccounts({ page, size }), totalBalance()])
       setRows(a.content)
-      setTotal(a.totalElements)
+      setTotal(a.total)
+      setIsLast(a.last)
       setTotals(t)
     } catch (e) {
       setError(toMessage(e))
@@ -114,10 +117,10 @@ export function AccountsPage() {
             {t('common.page')} {page + 1}
           </span>
           <div className="flex gap-2">
-            <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
+            <Button disabled={loading || page === 0} onClick={() => setPage(page - 1)}>
               {t('common.previous')}
             </Button>
-            <Button disabled={(page + 1) * size >= total} onClick={() => setPage(page + 1)}>
+            <Button disabled={loading || !hasNextPage(page, Math.ceil(total / size), isLast)} onClick={() => setPage(page + 1)}>
               {t('common.next')}
             </Button>
           </div>

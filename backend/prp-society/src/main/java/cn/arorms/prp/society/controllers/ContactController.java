@@ -1,5 +1,6 @@
 package cn.arorms.prp.society.controllers;
 
+import cn.arorms.framework.common.domain.PageResponse;
 import cn.arorms.framework.security.UserPrincipal;
 import cn.arorms.prp.society.dtos.ContactDto;
 import cn.arorms.prp.society.dtos.ContactResponse;
@@ -7,7 +8,6 @@ import cn.arorms.prp.society.enums.ContactType;
 import cn.arorms.prp.society.services.ContactService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +24,7 @@ public class ContactController {
     }
 
     @GetMapping
-    public Page<ContactResponse> list(
+    public PageResponse<ContactResponse> list(
             @AuthenticationPrincipal UserPrincipal user,
             @RequestParam(required = false) Long partyId,
             @RequestParam(required = false) ContactType contactType,
@@ -33,7 +33,7 @@ public class ContactController {
             @RequestParam(defaultValue = "20") int size
     ) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        return contactService.list(user.getId(), partyId, contactType, q, pageable);
+        return PageResponse.fromPage(contactService.list(user.getId(), partyId, contactType, q, pageable));
     }
 
     @GetMapping("/{id}")

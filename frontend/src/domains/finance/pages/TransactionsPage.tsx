@@ -4,6 +4,7 @@ import { fmtMoney } from '../../../shared/lib/format'
 import { useT } from '../../../shared/i18n/TranslationContext'
 import { usePage } from '../../../shared/hooks/usePage'
 import { Badge, Button, Card, Empty, Field, Input, Select, Spinner } from '../../../shared/ui'
+import { hasNextPage } from '../../../shared/types'
 import { createTransaction, deleteTransaction, listAccounts, listCategories, listTransactions } from '../api'
 import { AddTransactionModal } from '../components/AddTransactionModal'
 import type { Account, Category, Transaction } from '../types'
@@ -20,6 +21,7 @@ export function TransactionsPage() {
   const [categories, setCategories] = useState<Category[]>([])
   const [rows, setRows] = useState<Transaction[]>([])
   const [total, setTotal] = useState(0)
+  const [isLast, setIsLast] = useState(true)
   const [loading, setLoading] = useState(true)
   const [optionsLoading, setOptionsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -42,7 +44,8 @@ export function TransactionsPage() {
         size,
       })
       setRows(res.content)
-      setTotal(res.totalElements)
+      setTotal(res.total)
+      setIsLast(res.last)
     } catch (e) {
       setError(toMessage(e))
     } finally {
@@ -235,10 +238,10 @@ export function TransactionsPage() {
             {t('common.page')} {page + 1}
           </span>
           <div className="flex gap-2">
-            <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
+            <Button disabled={loading || page === 0} onClick={() => setPage(page - 1)}>
               {t('common.previous')}
             </Button>
-            <Button disabled={(page + 1) * size >= total} onClick={() => setPage(page + 1)}>
+            <Button disabled={loading || !hasNextPage(page, Math.ceil(total / size), isLast)} onClick={() => setPage(page + 1)}>
               {t('common.next')}
             </Button>
           </div>
