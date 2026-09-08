@@ -34,10 +34,10 @@ public class TaskService {
         Pageable unsortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
         if (projectId != null) {
-            return taskRepository.findByUserIdAndProject_Id(userId, projectId, unsortedPageable);
+            return taskRepository.search(userId, projectId, unsortedPageable);
         }
 
-        return taskRepository.findByUserId(userId, unsortedPageable);
+        return taskRepository.search(userId, null, unsortedPageable);
     }
 
     public Page<Task> getAllByDeadline(Pageable pageable, String userId) {

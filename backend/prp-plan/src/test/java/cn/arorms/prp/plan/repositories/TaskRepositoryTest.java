@@ -36,7 +36,7 @@ class TaskRepositoryTest {
                 .title("pending-old").status(TaskStatus.PENDING)
                 .createdAt(LocalDateTime.of(2026, 9, 1, 10, 0)).build());
 
-        Page<Task> page = taskRepository.findByUserId("user", Pageable.ofSize(10).withPage(0));
+        Page<Task> page = taskRepository.search("user", null, Pageable.ofSize(10).withPage(0));
         List<String> titles = page.getContent().stream().map(Task::getTitle).toList();
 
         assertEquals(List.of("pending-new", "pending-old", "completed", "cancelled"), titles);
